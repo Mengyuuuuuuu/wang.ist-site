@@ -1,0 +1,122 @@
+# -------------------------------
+# System Files
+# -------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+._*
+*.swp
+*.swo
+
+# -------------------------------
+# IDE / Editor
+# -------------------------------
+# VSCode
+.vscode/
+*.code-workspace
+
+# JetBrains
+.idea/
+*.iml
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# -------------------------------
+# Environment / Secrets (critical!)
+# -------------------------------
+.env
+.env.*
+*.secret
+*.key
+config.php       # 若包含敏感資訊，建議忽略
+secrets/
+credentials/
+
+# -------------------------------
+# PHP / Composer
+# -------------------------------
+/vendor/
+/composer.lock
+composer.phar
+
+# Cache / Logs
+*.cache
+*.log
+/logs/
+/cache/
+/tmp/
+
+# -------------------------------
+# Web Assets
+# -------------------------------
+# Node / npm / yarn / pnpm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build artifacts (frontend frameworks)
+dist/
+build/
+public/build/
+public/assets/
+assets/build/
+
+# -------------------------------
+# Docker / DevOps
+# -------------------------------
+# Docker Compose volumes
+docker-data/
+docker/logs/
+docker/mysql/
+docker/redis/
+docker/nginx/cache/
+
+# Local override files
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Docker machine
+.docker/
+
+# -------------------------------
+# CI / CD (GitHub Actions / GitLab CI)
+# -------------------------------
+# GitHub Actions runner cache
+.github/workflows/*.tmp
+ci-artifacts/
+ci-cache/
+
+# -------------------------------
+# Linux / Unix
+# -------------------------------
+*.pid
+*.seed
+*.pid.lock
+
+# -------------------------------
+# Backups
+# -------------------------------
+*.bak
+*.backup
+*.old
+*.orig
+
+# -------------------------------
+# Project Specific
+# -------------------------------
+# Ignore static cache/thumbnails (if generated)
+public/uploads/tmp/
+public/uploads/cache/
+
+# Ignore local database dump
+*.sql
+*.sqlite
+*.db
+
+# Ignore PHPStorm indexed files
+/.idea/
