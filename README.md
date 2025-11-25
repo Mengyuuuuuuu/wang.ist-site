@@ -1,162 +1,84 @@
-# wang.ist -- Personal Homepage / Tech Profile
+# wang.ist --- Personal Website (Node.js + Express + EJS + Markdown Notes)
 
-A personal web project focused on **Web Backend, Networking,
-Cybersecurity, and DevOps**.\
-This site will serve as my **public tech profile**, hosted on a VPS
-using a modern CI/CD workflow.
+A personal tech website built with **Node.js, Express, EJS, and
+Markdown-based Notes**, hosted on a VPS as part of my long-term journey
+into:
 
-------------------------------------------------------------------------
+-   **DevOps**
+-   **Web Backend**
+-   **Networking & Cybersecurity**
+-   **Cloud & Server Administration**
 
-## 🎯 Project Purpose
+This site serves as my **public professional profile**, project archive,
+and a growing collection of **technical study notes**.
 
-This project has three main goals:
+## 🎯 Project Goals
 
-1.  **Personal Homepage**
-    -   A clean and professional profile website under the domain
-        **wang.ist**\
-    -   Showcasing my background in Wirtschaftsinformatik (Business
-        Informatics),\
-        as well as my interests in backend development, cloud,
-        networking, and security.
-2.  **Networking & Cybersecurity Practice**
-    -   Experimenting with DNS, Nginx, HTTPS, Firewall rules, SSH
-        hardening,\
-        TLS certificates, server monitoring, and secure deployment
-        patterns.
-3.  **DevOps Workflow + VPS Hosting**
-    -   Practicing a complete DevOps workflow:
-        -   Git + GitHub SSH\
-        -   Build pipelines\
-        -   Automated deployment\
-        -   Dockerized production environment\
-        -   Reverse proxy setup\
-        -   Versioned updates and rollback strategies
+### 1. Personal Profile Website
 
-------------------------------------------------------------------------
+-   Hosted under **wang.ist**
+-   Built with Node.js + Express
+-   Clean, modern layout using EJS templates
+-   Showcases background, current studies (THM), skills & interests
 
-## 🏗️ Planned Tech Stack
+### 2. Learning Notes (Markdown → HTML)
 
--   **Frontend:** HTML, CSS, JavaScript\
--   **Backend:** PHP / (Lightweight MVC structure)\
--   **Database:** MySQL / MariaDB\
--   **Server:** NGINX on Linux VPS\
--   **Deployment:** GitHub Actions → SSH Deploy / Rsync\
--   **Containerization (optional later):** Docker + docker-compose\
--   **Security:**
-    -   SSH key authentication\
-    -   Fail2ban\
-    -   TLS/SSL (Let's Encrypt)\
-    -   Secure headers (CSP, HSTS)
-    -   Firewall configuration (UFW / iptables)
+-   `/notes` automatically loads `.md` files from `notes/` folder
+-   Supports unlimited technical notes
+-   Full Markdown rendering via `marked`
+-   Updates via `git pull`
 
-------------------------------------------------------------------------
+### 3. Portfolio / Projects
 
-## 📁 Project Structure (Planned)
+-   `/portfolio` lists completed and planned projects
+-   Each item links to its GitHub repo
 
-    wang.ist-site/
-    │
-    ├── public/               # Public-facing web files (index.php, assets, etc.)
-    │   ├── index.php
-    │   ├── home.php
-    │   ├── css/
-    │   ├── js/
-    │   └── img/
-    │
-    ├── src/                  # PHP logic (routing, controllers, etc.)
-    │
-    ├── config/
-    │   ├── config.example.php
-    │   └── nginx/
-    │
-    ├── scripts/              # Deployment / automation scripts
-    │
-    ├── .github/workflows/    # CI/CD pipelines
-    │
-    ├── .gitignore
-    ├── LICENSE
+### 4. DevOps Practice
+
+-   VPS hosting, PM2, Nginx
+-   HTTPS via Let's Encrypt
+-   SSH hardening
+-   GitHub → VPS deployment workflow
+
+## 🧱 Tech Stack
+
+### Backend
+
+-   Node.js
+-   Express
+-   EJS
+-   marked
+
+### Server
+
+-   Ubuntu VPS
+-   PM2
+-   Nginx
+-   Git over SSH
+
+## 📁 Project Structure
+
+    wang.ist-site
+    ├── src
+    │   └── server.js
+    ├── views
+    │   ├── layout.ejs
+    │   ├── home.ejs
+    │   ├── portfolio.ejs
+    │   ├── notes-index.ejs
+    │   └── notes-detail.ejs
+    ├── notes
+    ├── public
+    ├── legacy-php
     └── README.md
 
-------------------------------------------------------------------------
+## 🚀 Deployment
 
-## 🚀 Deployment Vision (DevOps Workflow)
-
-This project will be deployed to a Linux VPS using:
-
-### ✔ CI/CD Pipeline
-
--   GitHub Actions\
--   Automatic build & syntax checks\
--   Rsync / SSH deployment to VPS server
-
-### ✔ VPS Setup
-
--   Ubuntu Server\
--   NGINX reverse proxy\
--   PHP-FPM\
--   MySQL / MariaDB\
--   Automatic SSL via Certbot\
--   Systemd service management
-
-### ✔ Security Focus
-
--   SSH-only login (no password auth)\
--   iptables / ufw firewall\
--   fail2ban (optional)\
--   Secure headers (CSP, HSTS, Referrer Policy, etc.)
-
-------------------------------------------------------------------------
-
-## 📝 Roadmap
-
-### ✅ Phase 1 --- Foundation
-
--   Create repo\
--   Add .gitignore\
--   Configure SSH GitHub access\
--   Set initial folder structure\
--   Basic index.php + Spline 3D animation homepage
-
-### 🔄 Phase 2 --- VPS Deployment
-
--   Set up VPS\
--   Install Nginx + PHP\
--   Configure domain (wang.ist → /var/www/wang.ist/public)\
--   Enable HTTPS\
--   First manual deployment
-
-### 🔄 Phase 3 --- DevOps Automation
-
--   GitHub Actions CI (PHP linting, build checks)\
--   CD pipeline for auto-deploy\
--   Rollback strategy
-
-### ⏳ Phase 4 --- Site Expansion
-
--   About page\
--   Tech notes / blog\
--   Project portfolio section\
--   Cybersecurity demos\
--   Networking diagrams (DNS, server architecture)
-
-------------------------------------------------------------------------
-
-## 📌 Status
-
-**Current state:** Early setup phase\
-- GitHub SSH access completed\
-- Repository structure initialized\
-- Next step: Create basic `/public` folder and `index.php`
-
-------------------------------------------------------------------------
+    npm install
+    pm2 start src/server.js --name wang.ist
+    git pull && pm2 restart wang.ist
 
 ## 👤 Author
 
-**Mengyu Wang**\
-- THM -- Wirtschaftsinformatik (5th Semester)\
-- Focus on Networking, Cybersecurity, Web Backend & DevOps
-
-------------------------------------------------------------------------
-
-## 📄 License
-
-MIT License
+**Mengyu Wang**
+Wirtschaftsinformatik (THM)
