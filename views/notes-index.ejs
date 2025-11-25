@@ -1,19 +1,10 @@
-<%- include('layout', { title }) %>
-
-<main class="content">
-  <section>
-    <h1>Learning Notes 📚</h1>
-    <p>
-      Ausgewählte technische Lernnotizen aus meinem Studium und Selbststudium.
-    </p>
-
-    <ul>
-      <% notes.forEach(note => { %>
-      <li>
-        <a href="/notes/<%= note.slug %>"><%= note.title %></a>
-        <small style="opacity: 0.6"> (<%= note.filename %>)</small>
-      </li>
-      <% }) %>
-    </ul>
-  </section>
-</main>
+<%- include('layout', { title: "Learning Notes – Mengyu Wang", body: `
+<section>
+  <h1>Learning Notes</h1>
+  <ul>
+    ${notes.map(note => `
+    <li><a href="/notes/${note.slug}">${note.title}</a></li>
+    `).join('')}
+  </ul>
+</section>
+` }) %>

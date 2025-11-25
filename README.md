@@ -81,4 +81,6 @@ and a growing collection of **technical study notes**.
 ## 👤 Author
 
 **Mengyu Wang**
+
 Wirtschaftsinformatik (THM)
+npm start

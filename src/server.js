@@ -1,17 +1,18 @@
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 const { marked } = require("marked");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const rootDir = path.join(__dirname, "..");
-const noteDir = path.join(rootDir, "notes");
+const notesDir = path.join(rootDir, "notes");
 
 app.set(`view engine`, `ejs`);
-app.set("views", path.join(rootDir, `..`, "views"));
+app.set("views", path.join(rootDir, "views"));
 
-app.use(express.static(path.join(rootDir, `..`, "public")));
+app.use(express.static(path.join(rootDir, "public")));
 
 app.get("/", (req, res) => {
   res.render("home", {
@@ -73,7 +74,7 @@ app.get("/notes/:slug", (req, res) => {
     title = match[1].trim();
   }
 
-  res.render("note-detail", {
+  res.render("notes-detail", {
     title,
     content: htmlContent,
   });
