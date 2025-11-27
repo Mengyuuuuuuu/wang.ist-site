@@ -4,22 +4,73 @@
     <meta charset="UTF-8" />
     <title><%= title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/tailwind.css" />
   </head>
-  <body>
-    <header>
-      <nav>
-        <a href="/">Profile</a>
-        <a href="/portfolio">Portfolio</a>
-        <a href="/notes">Notes</a>
-        <a href="https://github.com/Mengyuuuuuuu" target="_blank">GitHub</a>
-      </nav>
+  <body
+    class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col"
+  >
+    <!--A transparent Navbar fixed at the top-->
+    <header class="fixed inset-x-0 top-0 z-20 pointer-events-none">
+      <div
+        class="max-w-5xl mx-auto px-6 py-4 flex items-center gap-4 pointer-events-auto"
+      >
+        <div class="font-semibold tracking-tight">
+          <span
+            class="text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.8)] hover:drop-shadow-[0_0_10px_rgba(80,180,255,0.9)] transition"
+          >
+            Mengyu
+          </span>
+          <span class="text-slate-300 text-xs ml-2">· wang.ist</span>
+        </div>
+
+        <nav class="ml-auto flex gap-4 text-sm">
+          <a
+            href="/"
+            class="text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.8)] hover:drop-shadow-[0_0_10px_rgba(80,180,255,0.9)] transition"
+            >Home</a
+          >
+          <a
+            href="/about"
+            class="text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.8)] hover:drop-shadow-[0_0_10px_rgba(80,180,255,0.9)] transition"
+            >About Me</a
+          >
+          <a
+            href="/projects"
+            class="text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.8)] hover:drop-shadow-[0_0_10px_rgba(80,180,255,0.9)] transition"
+            >Projects</a
+          >
+          <a
+            href="/notes"
+            class="text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.8)] hover:drop-shadow-[0_0_10px_rgba(80,180,255,0.9)] transition"
+            >Tech Blog</a
+          >
+          <a
+            href="https://github.com/Mengyuuuuuuu"
+            class="text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.8)] hover:drop-shadow-[0_0_10px_rgba(80,180,255,0.9)] transition"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+        </nav>
+      </div>
     </header>
 
-    <main><%- body %></main>
+    <!-- Content area: Full screen for Landing, padding for other pages to avoid being covered by nav -->
+    <main
+      class="<%= isLanding ? '' : 'max-w-5xl mx-auto px-6 pt-24 pb-16 flex-1' %>"
+    >
+      <%- body %>
+    </main>
 
-    <footer>
-      <p>&copy; <%= new Date().getFullYear() %> Mengyu Wang · wang.ist</p>
+    <!-- Footer: Shared across all pages -->
+    <footer class="border-t border-slate-800 mt-8">
+      <div
+        class="max-w-5xl mx-auto px-6 py-4 text-xs text-slate-500 flex justify-between"
+      >
+        <span>© <%= new Date().getFullYear() %> Mengyu · wang.ist</span>
+        <span>Made with Node.js · Express · Tailwind CSS</span>
+      </div>
     </footer>
   </body>
 </html>

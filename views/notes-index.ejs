@@ -1,10 +1,31 @@
-<%- include('layout', { title: "Learning Notes – Mengyu Wang", body: `
-<section>
-  <h1>Learning Notes</h1>
-  <ul>
-    ${notes.map(note => `
-    <li><a href="/notes/${note.slug}">${note.title}</a></li>
-    `).join('')}
+<!-- views/notes-index.ejs -->
+
+<section class="max-w-4xl mx-auto pt-28 pb-20 px-6 space-y-6">
+  <h1 class="text-4xl font-bold text-white">Learning Notes 📚</h1>
+
+  <p class="text-slate-300 text-lg">
+    Hier sammle ich technische Lernnotizen, Zusammenfassungen und
+    Verständnisübungen aus meinem Studium und Selbststudium.
+  </p>
+
+  <ul class="space-y-3">
+    <% notes.forEach(note => { %>
+    <li class="flex items-center gap-3">
+      <span class="text-slate-500">•</span>
+      <a
+        href="/notes/<%= note.slug %>"
+        class="text-sky-300 hover:text-sky-200 text-lg"
+      >
+        <%= note.title %>
+      </a>
+    </li>
+    <% }) %>
   </ul>
+
+  <% if (notes.length === 0) { %>
+  <p class="text-slate-400 text-sm">
+    Noch keine Notizen vorhanden. Bitte im Ordner
+    <code>notes/</code> Markdown-Dateien hinzufügen.
+  </p>
+  <% } %>
 </section>
-` }) %>
