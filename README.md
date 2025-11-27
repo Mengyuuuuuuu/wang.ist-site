@@ -1,62 +1,72 @@
-# wang.ist --- Personal Website (Node.js + Express + EJS + Markdown Notes)
+# 🌐 **wang.ist --- Personal Website (Node.js + Express + EJS + Tailwind + Markdown Notes)**
 
-A personal tech website built with **Node.js, Express, EJS, and
-Markdown-based Notes**, hosted on a VPS as part of my long-term journey
-into:
+A personal tech website built with **Node.js, Express, EJS, Tailwind
+CSS, and Markdown-based Notes** --- deployed on a VPS as part of my
+long-term journey into:
 
 -   **DevOps**
 -   **Web Backend**
 -   **Networking & Cybersecurity**
 -   **Cloud & Server Administration**
 
-This site serves as my **public professional profile**, project archive,
-and a growing collection of **technical study notes**.
+The site serves as my **public professional profile**, a **project
+portfolio**, and a growing collection of **technical study notes**.
 
-## 🎯 Project Goals
+------------------------------------------------------------------------
 
-### 1. Personal Profile Website
+## 🎯 **Project Goals**
+
+### **1. Personal Profile Website**
 
 -   Hosted under **wang.ist**
--   Built with Node.js + Express
--   Clean, modern layout using EJS templates
--   Showcases background, current studies (THM), skills & interests
+-   EJS templating + Tailwind styling
+-   Showcases background, studies (THM), skills & interests
 
-### 2. Learning Notes (Markdown → HTML)
+### **2. Learning Notes (Markdown → HTML)**
 
--   `/notes` automatically loads `.md` files from `notes/` folder
--   Supports unlimited technical notes
--   Full Markdown rendering via `marked`
--   Updates via `git pull`
+-   `/notes` automatically lists all `.md` files in `notes/`
+-   Dynamic rendering using **marked**
+-   Perfect for ongoing network & cybersecurity notes
 
-### 3. Portfolio / Projects
+### **3. Projects / Portfolio**
 
--   `/portfolio` lists completed and planned projects
--   Each item links to its GitHub repo
+-   `/projects` displays current and completed projects\
+-   Each entry links to the corresponding GitHub repo\
 
-### 4. DevOps Practice
+### **4. DevOps Workflow Practice**
 
--   VPS hosting, PM2, Nginx
--   HTTPS via Let's Encrypt
--   SSH hardening
--   GitHub → VPS deployment workflow
+-   VPS hosting (Ubuntu)
+-   PM2 process manager
+-   Nginx reverse proxy + HTTPS (Let's Encrypt)
+-   GitHub → VPS deployment workflow (manual or automated)
 
-## 🧱 Tech Stack
+------------------------------------------------------------------------
 
-### Backend
+## 🧱 **Tech Stack**
 
--   Node.js
--   Express
--   EJS
--   marked
+### **Backend**
 
-### Server
+-   Node.js\
+-   Express\
+-   EJS\
+-   marked (Markdown rendering)
 
--   Ubuntu VPS
--   PM2
--   Nginx
+### **Frontend**
+
+-   Tailwind CSS\
+-   Custom responsive layout\
+-   Reusable EJS components
+
+### **Server / Deployment**
+
+-   Ubuntu VPS\
+-   PM2\
+-   Nginx\
 -   Git over SSH
 
-## 📁 Project Structure
+------------------------------------------------------------------------
+
+## 📁 **Project Structure (Updated)**
 
     wang.ist-site
     ├── src
@@ -64,23 +74,38 @@ and a growing collection of **technical study notes**.
     ├── views
     │   ├── layout.ejs
     │   ├── home.ejs
-    │   ├── portfolio.ejs
+    │   ├── about.ejs
+    │   ├── projects.ejs
     │   ├── notes-index.ejs
     │   └── notes-detail.ejs
     ├── notes
+    │   └── *.md   (technical notes)
     ├── public
+    │   ├── css
+    │   │   ├── input.css
+    │   │   └── tailwind.css
+    │   ├── img
+    │   └── js
     ├── legacy-php
+    │   ├── home.php
+    │   └── index.php
+    ├── tailwind.config.js
+    ├── postcss.config.js
     └── README.md
 
-## 🚀 Deployment
+------------------------------------------------------------------------
 
-    npm install
-    pm2 start src/server.js --name wang.ist
-    git pull && pm2 restart wang.ist
+## 🚀 **Deployment**
 
-## 👤 Author
+``` sh
+npm install
+pm2 start src/server.js --name wang.ist
+git pull && pm2 restart wang.ist
+```
 
-**Mengyu Wang**
+------------------------------------------------------------------------
 
+## 👤 **Author**
+
+**Mengyu Wang**\
 Wirtschaftsinformatik (THM)
-npm start
