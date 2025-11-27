@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const { marked } = require("marked");
+const expressLayouts = require("express-ejs-layouts"); // ⭐ import express-ejs-layouts
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,34 +10,44 @@ const PORT = process.env.PORT || 3000;
 const rootDir = path.join(__dirname, "..");
 const notesDir = path.join(rootDir, "notes");
 
-app.set(`view engine`, `ejs`);
+// View engine & views path
+app.set("view engine", "ejs");
 app.set("views", path.join(rootDir, "views"));
 
+// Static assets
 app.use(express.static(path.join(rootDir, "public")));
 
+// ⭐ Enable EJS Layouts
+app.use(expressLayouts);
+app.set("layout", "layout"); // Corresponds to views/layout.ejs
+
+// ----------------- Routes -----------------
+
+// Home: Landing Page (Full-screen Spline)
 app.get("/", (req, res) => {
   res.render("home", {
     title: "Mengyu Wang - Profile",
+    isLanding: true, // ⭐ Tell layout: this page is Landing
   });
 });
 
-app.get("/portfolio", (req, res) => {
-  res.render("portfolio", {
-    title: "Mengyu Wang - Projects & Portfolio",
+// Portfolio / Projects
+app.get("/projects", (req, res) => {
+  res.render("projects", {
+    title: "Mengyu Wang - Projects",
+    isLanding: false,
   });
 });
 
+// Notes List
 app.get("/notes", (req, res) => {
-  // 讀取 notes/ 裡所有 .md 文件
   const files = fs.readdirSync(notesDir).filter((f) => f.endsWith(".md"));
 
-  // 把檔名轉成 slug + 標題
   const notes = files.map((filename) => {
     const slug = filename.replace(/\.md$/, "");
     const fullPath = path.join(notesDir, filename);
     const content = fs.readFileSync(fullPath, "utf8");
 
-    // 嘗試從第一行 '# ' 標題取 title，沒有就用檔名
     const firstLine = content.split("\n")[0];
     let title = slug;
     const match = firstLine.match(/^#\s+(.+)/);
@@ -50,9 +61,11 @@ app.get("/notes", (req, res) => {
   res.render("notes-index", {
     title: "Learning Notes – Mengyu Wang",
     notes,
+    isLanding: false,
   });
 });
 
+// Notes Detail
 app.get("/notes/:slug", (req, res) => {
   const slug = req.params.slug;
   const filePath = path.join(notesDir, slug + ".md");
@@ -62,11 +75,8 @@ app.get("/notes/:slug", (req, res) => {
   }
 
   const mdContent = fs.readFileSync(filePath, "utf8");
-
-  // 轉成 HTML
   const htmlContent = marked.parse(mdContent);
 
-  // 和列表一樣，從第一行嘗試取 title
   const firstLine = mdContent.split("\n")[0];
   let title = slug;
   const match = firstLine.match(/^#\s+(.+)/);
@@ -77,9 +87,19 @@ app.get("/notes/:slug", (req, res) => {
   res.render("notes-detail", {
     title,
     content: htmlContent,
+    isLanding: false,
   });
 });
 
+// About
+app.get("/about", (req, res) => {
+  res.render("about", {
+    title: "About – Mengyu Wang",
+    isLanding: false,
+  });
+});
+
+// ----------------- Start server -----------------
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
