@@ -1,4 +1,4 @@
-# FTP, FTPS und SFTP – Grundlagen, Funktionsweise und Sicherheitsvergleich
+# 📂 FTP, FTPS und SFTP – Grundlagen, Funktionsweise und Sicherheitsvergleich
 *Notizen im Rahmen der Netzwerk- und IT-Sicherheitsgrundlagen*
 
 ---
