@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "A personal web project focused on **Web Backend, Networking, Cybersecurity, and DevOps**.\\ This site will serve as my **public tech profile**, hosted on a VPS using a modern CI/CD workflow.",
   "main": "src/server.js",
+
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js",
-    "dev": "node src/server.js",
-    "dev:css": "npx tailwindcss -i ./src/styles/input.css -o ./public/css/tailwind.css --watch",
-    "build:css": "npx tailwindcss -i ./src/styles/input.css -o ./public/css/tailwind.css"
-  },
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "node src/server.js",
+  "dev": "node src/server.js",
+  "dev:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/tailwind.css --watch",
+  "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/tailwind.css"
+},
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mengyuuuuuuu/wang.ist-site.git"
