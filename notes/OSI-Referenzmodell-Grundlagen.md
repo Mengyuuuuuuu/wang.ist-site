@@ -83,20 +83,14 @@ Es dient als theoretisches Modell, um Netzwerktechnik zu strukturieren, Protokol
 
 ```mermaid
 sequenceDiagram
-    participant App as Anwendung
-    participant TCP as Transport
-    participant IP as Netzwerk
-    participant MAC as Sicherung
-    participant PHY as Physisch
-
-    App->>TCP: Daten
-    TCP->>IP: Segmente
-    IP->>MAC: Pakete
-    MAC->>PHY: Frames → Bits
-    PHY-->>MAC: Bits
-    MAC-->>IP: Frames
-    IP-->>TCP: Pakete
-    TCP-->>App: Segmente → Daten
+    Anwendung->>Transport: Daten
+    Transport->>Netzwerk: Segmente
+    Netzwerk->>Sicherung: Pakete
+    Sicherung->>Physisch: Frames → Bits
+    Physisch-->> Sicherung: Bits
+    Sicherung-->>Netzwerk: Frames
+    Netzwerk-->>Transport: Pakete
+    Transport-->>Anwendung: Segmente → Daten
 ```
 
 ---

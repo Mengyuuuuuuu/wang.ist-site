@@ -74,19 +74,13 @@ aber desto **höher** ist auch die DNS-Last, da häufiger neue Abfragen stattfin
 
 ```mermaid
 sequenceDiagram
-    participant User as Nutzer
-    participant Registrar as Domain-Registrar
-    participant Registry as TLD-Registry (.ist)
-    participant Root as Root-Server
-    participant Resolver as Weltweite Resolver
-
-    User->>Registrar: Änderung der Nameserver
-    Registrar->>Registry: Überträgt neue NS-Daten
-    Registry->>Root: Aktualisiert TLD-Zonen
-    Root->>Resolver: Liefert neue NS-Information
-    Resolver->>Resolver: Hält alte Daten bis TTL abläuft
-    Resolver->>Registry: Fragt neue NS-Daten an
-    Registry->>Resolver: Gibt aktualisierte Informationen zurück
+    Nutzer->>Domin-Registrar: Änderung der Nameserver
+    Domin-Registrar->>TLD-Registry (.ist): Überträgt neue NS-Daten
+    TLD-Registry (.ist)->>Root-Server: Aktualisiert TLD-Zonen
+    Root-Server->>Weltweite Resolver: Liefert neue NS-Information
+    Weltweite Resolver->>Weltweite Resolver: Hält alte Daten bis TTL abläuft
+    Weltweite Resolver->>TLD-Registry (.ist): Fragt neue NS-Daten an
+    TLD-Registry (.ist)->>Weltweite Resolver: Gibt aktualisierte Informationen zurück
 ```
 
 ---

@@ -74,18 +74,13 @@ Im Gegensatz zum theoretischen **OSI-Referenzmodell** besteht das TCP/IP-Modell 
 
 ```mermaid
 sequenceDiagram
-    participant App as Anwendung
-    participant TCP as Transport
-    participant IP as Internet
-    participant MAC as Netzzugang
-
-    App->>TCP: Daten
-    TCP->>IP: Segmente
-    IP->>MAC: Pakete
-    MAC->>MAC: Frames über physisches Medium
-    MAC-->>IP: Frames
-    IP-->>TCP: Pakete
-    TCP-->>App: Segmente → Daten
+    Anwendung->>Transport: Daten
+    Transport->>Internet: Segmente
+    Internet->>Netzzugang: Pakete
+    Netzzugang->>Netzzugang: Frames über physisches Medium
+    Netzzugang-->>Internet: Frames
+    Internet-->>Transport: Pakete
+    Transport-->>Anwendung: Segmente → Daten
 ```
 
 ---

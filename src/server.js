@@ -2,6 +2,24 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const { marked } = require("marked");
+// ===== Mermaid: Convert ```mermaid to <div class="mermaid"> =====
+const renderer = new marked.Renderer();
+const originalCode = renderer.code.bind(renderer);
+
+renderer.code = (code, infoString, escaped) => {
+  const lang = (infoString || "").trim().toLowerCase();
+
+  // If Markdown ```mermaid code block, convert it to <div class="mermaid">...</div>
+  if (lang === "mermaid") {
+    return `<div class="mermaid">\n${code}\n</div>`;
+  }
+
+  // Other languages are handled by marked's default renderer
+  return originalCode(code, infoString, escaped);
+};
+
+marked.setOptions({ renderer });
+
 const expressLayouts = require("express-ejs-layouts"); // ⭐ import express-ejs-layouts
 
 const app = express();
@@ -74,7 +92,16 @@ app.get("/notes/:slug", (req, res) => {
     return res.status(404).send("Note not found");
   }
 
-  const mdContent = fs.readFileSync(filePath, "utf8");
+  let mdContent = fs.readFileSync(filePath, "utf8");
+
+  // ⭐ before marked, convert ```mermaid code blocks to <div class="mermaid">
+  mdContent = mdContent.replace(
+    /```mermaid\s*([\s\S]*?)```/g,
+    (match, code) => {
+      return `<div class="mermaid">\n${code}\n</div>`;
+    }
+  );
+
   const htmlContent = marked.parse(mdContent);
 
   const firstLine = mdContent.split("\n")[0];

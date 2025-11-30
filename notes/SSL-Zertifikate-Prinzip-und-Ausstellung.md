@@ -41,16 +41,11 @@ Nur der Server kann die Nachrichten mit seinem privaten Schlüssel entschlüssel
 
 ```mermaid
 sequenceDiagram
-    participant User as Domaininhaber
-    participant CA as Zertifizierungsstelle (CA)
-    participant DNS as Domain Name System
-    participant Server as Webserver
-
-    User->>CA: Zertifikatsantrag (CSR) einreichen
-    CA->>DNS: Domain-Inhaberschaft prüfen (DNS/HTTP-Validierung)
-    DNS-->>CA: Bestätigung (Domain ist erreichbar)
-    CA->>Server: Signiertes Zertifikat ausstellen
-    Server->>User: HTTPS-Verbindung aktiv (Port 443)
+    Domaininhaber->>Zertifizierungsstelle (CA): Zertifikatsantrag (CSR) einreichen
+    Zertifizierungsstelle (CA)->>Domain Name System (DNS): Domain-Inhaberschaft prüfen (DNS/HTTP-Validierung)
+    Domain Name System (DNS)-->>Zertifizierungsstelle (CA): Bestätigung (Domain ist erreichbar)
+    Zertifizierungsstelle (CA)->>Webserver: Signiertes Zertifikat ausstellen
+    Webserver->>Domaininhaber: HTTPS-Verbindung aktiv (Port 443)
 ```
 
 ---
@@ -71,9 +66,6 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant Browser
-    participant Server
-
     Browser->>Server: ClientHello (TLS-Version, Cipher Suites)
     Server->>Browser: ServerHello (gewählter Cipher, Zertifikat)
     Browser->>Server: Überprüfung des Zertifikats (Chain, Gültigkeit)

@@ -57,19 +57,16 @@ SSH nutzt eine Kombination aus:
 
 ### 🔁 **Vereinfacht dargestellter Ablauf:**
 
-``` mermaid
+```mermaid
 sequenceDiagram
-    participant C as Client
-    participant S as Server
-
-    C->>S: TCP Handshake
-    C->>S: ClientHello (Unterstützte Algorithmen)
-    S->>C: ServerHello (Algorithmus + Host Key)
-    C->>C: Prüft Host Key (known_hosts)
-    C->>S: Key Exchange (random values)
-    S->>C: Session Key wird erzeugt
-    C->>S: Authentifizierung (Password/PrivateKey)
-    C->>S: Sichere Kommunikation beginnt
+    Client->>Server: TCP Handshake
+    Client->>Server: ClientHello (Unterstützte Algorithmen)
+    Server->>Client: ServerHello (Algorithmus + Host Key)
+    Client->>Client: Prüft Host Key (known_hosts)
+    Client->>Server: Key Exchange (random values)
+    Server->>Client: Session Key wird erzeugt
+    Client->>Server: Authentifizierung (Password/PrivateKey)
+    Client->>Server: Sichere Kommunikation beginnt
 ```
 
 ---

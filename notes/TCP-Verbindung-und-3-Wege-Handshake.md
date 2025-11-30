@@ -60,14 +60,14 @@ ACK = y + 1
 ## 5️⃣ Grafische Darstellung
 
 ```
-Client                          Server
-  |                               |
-  | ---- SYN (Seq = x) ---------> |
-  |                               |
+Client                            Server
+  |                                 |
+  | ------ SYN (Seq = x) ---------> |
+  |                                 |
   | <--- SYN/ACK (Seq = y, Ack=x+1) |
-  |                               |
-  | ---- ACK (Ack = y+1) -------> |
-  |                               |
+  |                                 |
+  | ----- ACK (Ack = y+1) --------> |
+  |                                 |
 Verbindung aufgebaut ✔
 ```
 
