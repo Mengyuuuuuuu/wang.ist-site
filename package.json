@@ -3,15 +3,13 @@
   "version": "1.0.0",
   "description": "A personal web project focused on **Web Backend, Networking, Cybersecurity, and DevOps**.\\ This site will serve as my **public tech profile**, hosted on a VPS using a modern CI/CD workflow.",
   "main": "src/server.js",
-
   "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "start": "node src/server.js",
-  "dev": "node src/server.js",
-  "dev:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/tailwind.css --watch",
-  "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/tailwind.css"
-},
-
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "dev": "node src/server.js",
+    "dev:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/tailwind.css --watch",
+    "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/tailwind.css"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mengyuuuuuuu/wang.ist-site.git"
@@ -28,7 +26,8 @@
     "ejs": "^3.1.10",
     "express": "^4.19.0",
     "express-ejs-layouts": "^2.5.1",
-    "marked": "^17.0.1"
+    "marked": "^17.0.1",
+    "nodemailer": "^7.0.11"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.22",

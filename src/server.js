@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "../.env" }); // Load .env variables
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
@@ -124,6 +125,70 @@ app.get("/about", (req, res) => {
     title: "About – Mengyu Wang",
     isLanding: false,
   });
+});
+
+// Contact
+const nodemailer = require("nodemailer");
+
+// make sure Express can read POST form data
+app.use(express.urlencoded({ extended: true }));
+
+// show contact page
+app.get("/contact", (req, res) => {
+  res.render("contact", {
+    title: "Contact",
+    isLanding: false,
+  });
+});
+
+// handle form submission
+app.post("/contact", async (req, res) => {
+  const { name, email, message } = req.body;
+
+  // Use Email to send mail
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: process.env.SMTP_SECURE === "true",
+    auth: {
+      user: "process.env.SMTP_USER",
+      pass: "process.env.SMTP_PASS",
+    },
+  });
+
+  const mailOptions = {
+    from: `"${name}" <${process.env.SMTP_USER}>`,
+    replyTo: email,
+    to: process.env.SMTP_USER,
+    subject: `New message from ${name}`,
+    text: `
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    // ✅ success: re-render contact page with success flag
+    res.render("contact", {
+      title: "Contact",
+      isLanding: false,
+      success: true,
+    });
+  } catch (err) {
+    console.error("EMAIL ERROR:", err);
+
+    // ❌ error: re-render contact page with error message
+    res.render("contact", {
+      title: "Contact – Mengyu Wang",
+      isLanding: false,
+      error:
+        "Die Nachricht konnte nicht gesendet werden. Bitte später erneut versuchen.",
+    });
+  }
 });
 
 // ----------------- Start server -----------------
