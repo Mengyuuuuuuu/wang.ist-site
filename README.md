@@ -1,111 +1,129 @@
-# 🌐 **wang.ist --- Personal Website (Node.js + Express + EJS + Tailwind + Markdown Notes)**
 
-A personal tech website built with **Node.js, Express, EJS, Tailwind
-CSS, and Markdown-based Notes** --- deployed on a VPS as part of my
-long-term journey into:
+# 🌐 **wang.ist — Personal Website (Node.js + Express + EJS + Tailwind + DevOps Practice)**
 
--   **DevOps**
--   **Web Backend**
--   **Networking & Cybersecurity**
--   **Cloud & Server Administration**
+A personal full-stack website built with **Node.js**, **Express**, **EJS**, and **Tailwind CSS**, deployed on a **Ubuntu VPS** with **Nginx**, **PM2**, and **GitHub Actions CI/CD**.
 
-The site serves as my **public professional profile**, a **project
-portfolio**, and a growing collection of **technical study notes**.
+This project serves as:
 
-------------------------------------------------------------------------
+- A **personal online profile & portfolio**
+- A **learning notebook** for networking & cybersecurity (Markdown → HTML)
+- A **DevOps sandbox**, practicing CI/CD, server automation, and deployment workflows
+
+---
 
 ## 🎯 **Project Goals**
 
-### **1. Personal Profile Website**
+### **1. Personal Portfolio Website**
+- Hosted at **wang.ist**
+- Responsive layout using EJS + Tailwind
+- Showcases background, interests, study notes, and professional profile
 
--   Hosted under **wang.ist**
--   EJS templating + Tailwind styling
--   Showcases background, studies (THM), skills & interests
+---
 
 ### **2. Learning Notes (Markdown → HTML)**
+- `/notes` auto-indexes `.md` files inside `/notes`
+- Markdown rendered to HTML using **marked**
+- Clean layout for ongoing cybersecurity, networking, and general technical notes
 
--   `/notes` automatically lists all `.md` files in `notes/`
--   Dynamic rendering using **marked**
--   Perfect for ongoing network & cybersecurity notes
-
-### **3. Projects / Portfolio**
-
--   `/projects` displays current and completed projects\
--   Each entry links to the corresponding GitHub repo\
-
-### **4. DevOps Workflow Practice**
-
--   VPS hosting (Ubuntu)
--   PM2 process manager
--   Nginx reverse proxy + HTTPS (Let's Encrypt)
--   GitHub → VPS deployment workflow (manual or automated)
-
-------------------------------------------------------------------------
+---
 
 ## 🧱 **Tech Stack**
 
 ### **Backend**
-
--   Node.js\
--   Express\
--   EJS\
--   marked (Markdown rendering)
+- Node.js (Express)
+- EJS templating
+- marked (Markdown rendering)
+- nodemailer (SMTP email sending)
 
 ### **Frontend**
+- Tailwind CSS (compiled from `input.css`)
+- Responsive dark-theme UI
+- Reusable EJS layout components
 
--   Tailwind CSS\
--   Custom responsive layout\
--   Reusable EJS components
+### **Deployment / Infrastructure**
+- Ubuntu 22.04 VPS
+- PM2 process manager
+- GitHub Actions CI/CD (automatic deployment via SSH)
+- Nginx reverse proxy
+- Let's Encrypt SSL (HTTPS)
 
-### **Server / Deployment**
-
--   Ubuntu VPS\
--   PM2\
--   Nginx\
--   Git over SSH
-
-------------------------------------------------------------------------
+---
 
 ## 📁 **Project Structure (Updated)**
 
-    wang.ist-site
-    ├── src
-    │   └── server.js
-    ├── views
-    │   ├── layout.ejs
-    │   ├── home.ejs
-    │   ├── about.ejs
-    │   ├── projects.ejs
-    │   ├── notes-index.ejs
-    │   └── notes-detail.ejs
-    ├── notes
-    │   └── *.md   (technical notes)
-    ├── public
-    │   ├── css
-    │   │   ├── input.css
-    │   │   └── tailwind.css
-    │   ├── img
-    │   └── js
-    ├── legacy-php
-    │   ├── home.php
-    │   └── index.php
-    ├── tailwind.config.js
-    ├── postcss.config.js
-    └── README.md
+```txt
+wang.ist-site
+├── src
+│   └── server.js
+├── views
+│   ├── layout.ejs
+│   ├── home.ejs
+│   ├── about.ejs
+│   ├── projects.ejs
+│   ├── notes-index.ejs
+│   ├── notes-detail.ejs
+│   └── contact.ejs
+├── notes
+│   └── *.md        (Markdown technical notes)
+├── public
+│   ├── css
+│   │   ├── input.css
+│   │   └── tailwind.css
+│   ├── img
+│   └── js
+├── .github
+│   └── workflows
+│       └── deploy.yml     (automatic deployment)
+├── tailwind.config.js
+├── postcss.config.js
+└── README.md
+```
 
-------------------------------------------------------------------------
+---
 
 ## 🚀 **Deployment**
 
-``` sh
-npm install
-pm2 start src/server.js --name wang.ist
-git pull && pm2 restart wang.ist
+### **Manual Deployment**
+```bash
+git pull
+npm ci
+pm2 restart wang.ist
 ```
 
-------------------------------------------------------------------------
+### **Automatic Deployment (GitHub Actions → VPS)**
+
+This project includes a GitHub Actions workflow:
+
+```
+.github/workflows/deploy.yml
+```
+
+Deployment pipeline:
+
+1. Triggered on push to `main`
+2. GitHub Actions SSH into the VPS
+3. Pulls the newest code
+4. Installs dependencies via `npm ci`
+5. Restarts the PM2 process for zero-downtime deployment
+
+---
+
+## 🔧 **Development Commands**
+
+### Start Dev Server
+```bash
+npm install
+npm run dev     # if nodemon is configured
+```
+
+### Compile Tailwind CSS
+```bash
+npx tailwindcss -i ./public/css/input.css -o ./public/css/tailwind.css --watch
+```
+
+---
 
 ## 👤 **Author**
 
-**Mengyu Wang**\
-Wirtschaftsinformatik (THM)
+**Mengyu Wang**  
+Wirtschaftsinformatik (THM) 
