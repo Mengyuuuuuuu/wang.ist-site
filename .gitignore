@@ -120,3 +120,7 @@ public/uploads/cache/
 
 # Ignore PHPStorm indexed files
 /.idea/
+
+# Ignore text replacement files
+replace.txt
+
