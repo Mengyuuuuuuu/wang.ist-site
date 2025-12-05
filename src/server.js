@@ -156,9 +156,6 @@ app.post("/contact", async (req, res) => {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
     },
-    tls: {
-      rejectUnauthorized: false,
-    },
   });
 
   const mailOptions = {
