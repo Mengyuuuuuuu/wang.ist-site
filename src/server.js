@@ -1,4 +1,3 @@
-require("dotenv").config({ path: "../.env" }); // Load .env variables
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
@@ -129,6 +128,9 @@ app.get("/about", (req, res) => {
 
 // Contact
 const nodemailer = require("nodemailer");
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
 
 // make sure Express can read POST form data
 app.use(express.urlencoded({ extended: true }));
@@ -148,11 +150,14 @@ app.post("/contact", async (req, res) => {
   // Use Email to send mail
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
+    port: Number(process.env.SMTP_PORT),
     secure: process.env.SMTP_SECURE === "true",
     auth: {
-      user: "process.env.SMTP_USER",
-      pass: "process.env.SMTP_PASS",
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
     },
   });
 
@@ -164,7 +169,6 @@ app.post("/contact", async (req, res) => {
     text: `
 Name: ${name}
 Email: ${email}
-
 Message:
 ${message}
     `,
