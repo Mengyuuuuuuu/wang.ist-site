@@ -29,11 +29,12 @@ jobs:
 
             cd ${{ secrets.VPS_APP_DIR }}
 
-            echo "Pulling latest code..."
-            git pull origin main
+            echo "Updating code from GitHub..."
+            git fetch origin main
+            git reset --hard origin/main                   
 
             echo "Installing dependencies..."
-            npm install --production
+            npm ci --omit=dev
 
             echo "Restarting PM2 app..."
             pm2 restart ${{ secrets.PM2_APP_NAME }}
