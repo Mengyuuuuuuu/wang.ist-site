@@ -131,18 +131,12 @@ Moderne Mailserver prüfen drei Mechanismen, um Spam und Spoofing zu verhindern:
 
 ```mermaid
 sequenceDiagram
-    participant Client
-    participant Submission as SMTP-Server (587)
-    participant DNS as DNS-MX
-    participant Transit as Mailserver (25)
-    participant Inbox as Ziel-Mailserver
-
-    Client->>Submission: Sendet E-Mail (AUTH, MAIL FROM, RCPT TO, DATA)
-    Submission->>DNS: MX-Eintrag für gmail.com?
-    DNS-->>Submission: Antwort: z.B. gmail-smtp-in.l.google.com
-    Submission->>Transit: SMTP-Weiterleitung (Port 25)
-    Transit->>Inbox: Übergabe der E-Mail
-    Inbox-->>Client: (Empfänger holt Mail via IMAP/POP3 ab)
+    Client->>SMTP_Server_587: Sendet E-Mail (AUTH, MAIL FROM, RCPT TO, DATA)
+    SMTP_Server_587->>DNS_MX: MX-Eintrag für gmail.com?
+    DNS_MX-->>SMTP_Server_587: Antwort: gmail-smtp-in.l.google.com
+    SMTP_Server_587->>Mailserver_25: SMTP-Weiterleitung (Port 25)
+    Mailserver_25->>Zielserver: Übergabe der E-Mail
+    Zielserver-->>Client: Empfänger holt Mail via IMAP/POP3 ab
 ```
 
 ---
