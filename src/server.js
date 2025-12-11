@@ -144,10 +144,75 @@ app.get("/contact", (req, res) => {
 });
 
 // handle form submission
-app.post("/contact", async (req, res) => {
-  const { name, email, message } = req.body;
+const axios = require("axios");
 
-  // Use Email to send mail
+app.post("/contact", async (req, res) => {
+  const {
+    name,
+    email,
+    message,
+    website,
+    "g-recaptcha-response": recaptchaResponse,
+  } = req.body;
+
+  // 1) simple hidden-field check (honeypot)
+  if (website && website.trim() !== "") {
+    console.log("Suspicious submission (honeypot filled) – ignoring.");
+    // Antwort wie bei Erfolg, damit Bots nichts merken
+    return res.status(200).render("contact", {
+      title: "Contact – Mengyu Wang",
+      isLanding: false,
+      success: true,
+      message: "Danke für deine Nachricht.",
+    });
+  }
+
+  // 2) captcha response must be present
+  if (!recaptchaResponse) {
+    return res.status(400).render("contact", {
+      title: "Contact – Mengyu Wang",
+      isLanding: false,
+      error: "Bitte bestätige, dass du kein Roboter bist.",
+      old: { name, email, message },
+    });
+  }
+
+  // 3) verify captcha with Google API
+  try {
+    const secret = process.env.RECAPTCHA_SECRET_KEY;
+    const verificationUrl = "https://www.google.com/recaptcha/api/siteverify";
+
+    const result = await axios.post(verificationUrl, null, {
+      params: {
+        secret,
+        response: recaptchaResponse,
+        remoteip: req.ip, // optional
+      },
+    });
+
+    const data = result.data;
+
+    if (!data.success) {
+      console.log("reCAPTCHA validation failed:", data);
+      return res.status(400).render("contact", {
+        title: "Contact – Mengyu Wang",
+        isLanding: false,
+        error:
+          "reCAPTCHA-Überprüfung fehlgeschlagen. Bitte versuche es erneut.",
+        old: { name, email, message },
+      });
+    }
+  } catch (err) {
+    console.error("Error while verifying reCAPTCHA:", err);
+    return res.status(500).render("contact", {
+      title: "Contact – Mengyu Wang",
+      isLanding: false,
+      error: "Es ist ein Fehler aufgetreten. Bitte versuche es später erneut.",
+      old: { name, email, message },
+    });
+  }
+
+  // 4) all checks passed – send email
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT),
@@ -173,21 +238,20 @@ ${message}
 
   try {
     await transporter.sendMail(mailOptions);
-    // ✅ success: re-render contact page with success flag
-    res.render("contact", {
-      title: "Contact",
+    // success: re-render contact page with success flag
+    return res.render("contact", {
+      title: "Contact – Mengyu Wang",
       isLanding: false,
       success: true,
     });
   } catch (err) {
     console.error("EMAIL ERROR:", err);
-
-    // ❌ error: re-render contact page with error message
-    res.render("contact", {
+    return res.render("contact", {
       title: "Contact – Mengyu Wang",
       isLanding: false,
       error:
         "Die Nachricht konnte nicht gesendet werden. Bitte später erneut versuchen.",
+      old: { name, email, message },
     });
   }
 });

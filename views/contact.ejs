@@ -1,4 +1,6 @@
 <section class="max-w-xl mx-auto py-12 text-white">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
   <h1 class="text-4xl font-bold mb-8">Schreib mir gerne</h1>
 
   <% if (typeof success !== 'undefined' && success) { %>
@@ -41,6 +43,24 @@
         class="w-full p-3 rounded bg-slate-800 text-slate-200 border border-gray-300 focus:ring-2 focus:ring-blue-500"
       ></textarea>
     </div>
+
+    <!-- Internal helper field -->
+    <div style="position: absolute; left: -5000px" aria-hidden="true">
+      <label for="website">If you are human, leave this field empty</label>
+      <input
+        type="text"
+        id="website"
+        name="website"
+        tabindex="-1"
+        autocomplete="off"
+      />
+    </div>
+
+    <!-- reCAPTCHA -->
+    <div
+      class="g-recaptcha"
+      data-sitekey="<%= process.env.RECAPTCHA_SITE_KEY %>"
+    ></div>
 
     <button
       class="bg-cyan-600 text-white px-6 py-3 rounded hover:bg-cyan-700 text-lg"
